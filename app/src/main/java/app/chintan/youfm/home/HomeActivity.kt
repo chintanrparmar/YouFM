@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -57,9 +59,11 @@ class HomeActivity : AppCompatActivity() {
                     showProgressBar()
                 }
                 is State.Success -> {
+                    hideProgressBar()
                     Toast.makeText(applicationContext, state.data, Toast.LENGTH_SHORT).show()
                 }
                 is State.Failure -> {
+                    hideProgressBar()
                     Toast.makeText(applicationContext, state.exception.message, Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -71,9 +75,11 @@ class HomeActivity : AppCompatActivity() {
                     showProgressBar()
                 }
                 is State.Success -> {
+                    hideProgressBar()
                     updateList(state.data)
                 }
                 is State.Failure -> {
+                    hideProgressBar()
                     Toast.makeText(applicationContext, state.exception.message, Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -85,9 +91,11 @@ class HomeActivity : AppCompatActivity() {
                     showProgressBar()
                 }
                 is State.Success -> {
+                    hideProgressBar()
                     playAudio(state.data)
                 }
                 is State.Failure -> {
+                    hideProgressBar()
                     Toast.makeText(applicationContext, state.exception.message, Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -101,15 +109,23 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun updateList(audioList: List<StorageReference>) {
+
+        if (audioList.isNullOrEmpty()) {
+            binding.noFilesTv.visibility = VISIBLE
+            return
+        }
+
         binding.audioListRcv.adapter = HomeListAdapter(audioList) { pathString ->
             homeViewModel.getDownloadURL(pathString)
         }
     }
 
     private fun showProgressBar() {
+        binding.progressBar.visibility = VISIBLE
     }
 
     private fun hideProgressBar() {
+        binding.progressBar.visibility = GONE
     }
 
     private fun setUpOnClick() {

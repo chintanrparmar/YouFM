@@ -41,7 +41,8 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/exoPlayer"
-        app:layout_constraintTop_toTopOf="@id/topGuideLine" />
+        app:layout_constraintTop_toTopOf="@id/topGuideLine"
+        tools:listitem="@layout/home_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/uploadAudio"
@@ -50,7 +51,8 @@
         android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_menu_upload"
         app:layout_constraintBottom_toTopOf="@id/exoPlayer"
-        app:layout_constraintEnd_toEndOf="@id/endGuideLine" />
+        app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/exoPlayer"
@@ -60,6 +62,30 @@
         app:hide_on_touch="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:show_timeout="0" />
+
+    <TextView
+        android:id="@+id/noFilesTv"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No Files Added.\nClick on the upload button to start uploading files"
+        android:textColor="@color/purple_500"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/exoPlayer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
